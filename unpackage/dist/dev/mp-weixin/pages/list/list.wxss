@@ -1,0 +1,9 @@
+
+.box{
+	height: 100px;
+	line-height: 100px;
+}
+button{
+	margin-bottom: 10px;
+}
+

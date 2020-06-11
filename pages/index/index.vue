@@ -1,9 +1,12 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+	<view>
+		<view class="box">
+			<button type="primary" size="mini" @click="chooseImg">上传图片</button>
+			<view class="img-wrap">
+				<image v-for="(item,index) in imgArr" :key= "index" :src="item" @click="previewImg(item)"></image>
+			</view>
 		</view>
+		
 	</view>
 </template>
 
@@ -11,42 +14,45 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				imgArr: []
 			}
 		},
-		onLoad() {
-
-		},
 		methods: {
-
+			chooseImg(){
+				uni.chooseImage({
+					count:5,
+					success: res=> {
+						console.log(res)
+						this.imgArr = res.tempFilePaths
+						console.log(this.imgArr)
+					}
+				})
+			},
+			previewImg(current){
+				console.log(current)
+				uni.previewImage({
+					current:current,
+					urls:this.imgArr,
+					loop:true,
+					indicator: 'default'
+				})
+			}
 		}
 	}
 </script>
 
-<style>
-	.content {
+<style lang="scss">
+	.box{
+		text-align: center;
+	}
+	.img-wrap{
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #7e5a94;
+		flex-direction: row;
+		flex-wrap: wrap; 
+		image{
+			width: 100px;
+			height: 100px;
+			margin: 5px;
+		}
 	}
 </style>

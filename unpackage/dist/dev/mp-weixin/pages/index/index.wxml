@@ -1,0 +1,1 @@
+<view><view><button type="primary" size="mini" data-event-opts="{{[['tap',[['chooseImg',['$event']]]]]}}" bindtap="__e">上传图片</button></view></view>
